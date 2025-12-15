@@ -3,11 +3,12 @@ version: "3.9"
 services: 
   frontend:
     build:
-      contecxt: .
-      dockerfile: dockerfile
+      context: ..
+      dockerfile: Dockerfile/Dockerfile
     container_name: react-app
     ports:
       - "5173:5173"
     volumes:
-      - ./FrontEnd/react-app:/app
+      - ../src:app
+      - ../package*.json:/app/
     command: ["npm", "run", "dev"]
