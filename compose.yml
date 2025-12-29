@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  db:
+    build:
+      context: ./DataBase
+      dockerfile: Docker/Dockerfile
+    env_file:
+      - ./.env
+    ports:
+      - "5431:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql
+
+  backend:
+    build:
+      context: ./BackEnd
+      dockerfile: Docker/Dockerfile
+    env_file:
+      - ./.env
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./BackEnd:/app
+
+  frontend:
+    build:
+      context: ./FrontEnd/react-app
+      dockerfile: Docker/Dockerfile
+    depends_on:
+      - backend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./FrontEnd/react-app:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_BASE_URL=http://localhost:8000
+
+volumes:
+  pgdata:
