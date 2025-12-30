@@ -1,8 +1,21 @@
 from pydantic import BaseModel, EmailStr, Field
+from datetime import datetime
 
-class UserBase(BaseModel):
+
+class UserCreate(BaseModel):
     email: EmailStr
     password: str = Field(min_length=8)
+
+
+class UserRead(BaseModel):
+    user_id: int
+    email: EmailStr
+    full_name: str | None = None
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
+
 
 class Token(BaseModel):
     access_token: str

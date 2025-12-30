@@ -1,3 +1,3 @@
-FROM postgres:18.1-trixie
+FROM postgres:16-alpine
 
 COPY init/*.sql /docker-entrypoint-initdb.d/

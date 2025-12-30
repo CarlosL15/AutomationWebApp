@@ -181,7 +181,7 @@ ALTER SEQUENCE public.social_accounts_account_id_seq OWNED BY public.social_acco
 
 CREATE TABLE public.users (
     user_id integer NOT NULL,
-    email character varying(255) NOT NULL,
+    email character varying(255) NOT NULL,a
     password_hash character varying(255) NOT NULL,
     full_name character varying(255),
     created_at timestamp with time zone DEFAULT now() NOT NULL
