@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from sqlalchemy import select
 
-from database import SessionLocal, engine, Base
+from database import engine, Base, get_db
 from models import User
 from schemas import UserCreate, UserRead, Token
 
@@ -29,14 +29,6 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 JWT_SECRET = os.getenv("JWT_SECRET", "dev-secret-change-me")
 JWT_ALG = "HS256"
 JWT_EXPIRES_MIN = int(os.getenv("JWT_EXPIRES_MIN", "60"))
-
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 
 @app.post("/auth/register", response_model=UserRead)

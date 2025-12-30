@@ -1,8 +1,7 @@
+Schema · SQL
 --
 -- PostgreSQL database dump
 --
-
-\restrict ctSNRKcjag2fHndUNepthJcEELquWsqt8qj1fWqNVM2jdqVhAmC5ewAouqc5v6g
 
 -- Dumped from database version 18.1 (Debian 18.1-1.pgdg13+2)
 -- Dumped by pg_dump version 18.1 (Debian 18.1-1.pgdg13+2)
@@ -181,7 +180,7 @@ ALTER SEQUENCE public.social_accounts_account_id_seq OWNED BY public.social_acco
 
 CREATE TABLE public.users (
     user_id integer NOT NULL,
-    email character varying(255) NOT NULL,a
+    email character varying(255) NOT NULL,
     password_hash character varying(255) NOT NULL,
     full_name character varying(255),
     created_at timestamp with time zone DEFAULT now() NOT NULL
@@ -337,7 +336,3 @@ ALTER TABLE ONLY public.social_accounts
 
 --
 -- PostgreSQL database dump complete
---
-
-\unrestrict ctSNRKcjag2fHndUNepthJcEELquWsqt8qj1fWqNVM2jdqVhAmC5ewAouqc5v6g
-
