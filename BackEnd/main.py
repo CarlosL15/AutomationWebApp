@@ -39,10 +39,13 @@ def register(payload: UserCreate, db: Session = Depends(get_db)):
     
     if existing:
         raise HTTPException(status_code=400, detail="Email already registered")
+    
+    full_name = f"{payload.first_name} {payload.last_name}"
 
     user = User(
         email=payload.email,
         password_hash=pwd_context.hash(payload.password),
+        full_name=full_name
     )
     db.add(user)
     db.commit()
@@ -65,7 +68,10 @@ def login(payload: UserCreate, db: Session = Depends(get_db)):
         JWT_SECRET,
         algorithm=JWT_ALG
     )
-    return {"access_token": token, "token_type": "bearer"}
+    return {"access_token": token, 
+            "token_type": "bearer", 
+            "user_name": user.full_name or user.email
+        }
 
 
 @app.get("/health")
