@@ -1,8 +1,24 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+# Master orchestrator - runs all services together (optional)
+# You can also run each service separately from their own directories
+
+>>>>>>> f3125b3 (changes)
+=======
+>>>>>>> e5777a6ae18a78206ad33272e7a723dc7291fe03
 services:
   db:
     build:
       context: ./DataBase
       dockerfile: Docker/Dockerfile
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    container_name: social-media-db
+>>>>>>> f3125b3 (changes)
+=======
+>>>>>>> e5777a6ae18a78206ad33272e7a723dc7291fe03
     env_file:
       - ./.env
     ports:
@@ -14,11 +30,26 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    networks:
+      - social-media-network
+>>>>>>> f3125b3 (changes)
+=======
+>>>>>>> e5777a6ae18a78206ad33272e7a723dc7291fe03
 
   backend:
     build:
       context: ./BackEnd
       dockerfile: Docker/Dockerfile
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    container_name: social-media-backend
+>>>>>>> f3125b3 (changes)
+=======
+>>>>>>> e5777a6ae18a78206ad33272e7a723dc7291fe03
     env_file:
       - ./.env
     depends_on:
@@ -28,11 +59,26 @@ services:
       - "8000:8000"
     volumes:
       - ./BackEnd:/app
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    networks:
+      - social-media-network
+>>>>>>> f3125b3 (changes)
+=======
+>>>>>>> e5777a6ae18a78206ad33272e7a723dc7291fe03
 
   frontend:
     build:
       context: ./FrontEnd/react-app
       dockerfile: Docker/Dockerfile
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    container_name: social-media-frontend
+>>>>>>> f3125b3 (changes)
+=======
+>>>>>>> e5777a6ae18a78206ad33272e7a723dc7291fe03
     depends_on:
       - backend
     ports:
@@ -42,6 +88,25 @@ services:
       - /app/node_modules
     environment:
       - VITE_API_BASE_URL=http://localhost:8000
+<<<<<<< HEAD
+<<<<<<< HEAD
 
 volumes:
   pgdata:
+=======
+    networks:
+      - social-media-network
+
+volumes:
+  pgdata:
+
+networks:
+  social-media-network:
+    name: social-media-network
+    driver: bridge
+>>>>>>> f3125b3 (changes)
+=======
+
+volumes:
+  pgdata:
+>>>>>>> e5777a6ae18a78206ad33272e7a723dc7291fe03
