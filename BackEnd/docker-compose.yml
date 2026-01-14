@@ -1,0 +1,18 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Docker/Dockerfile
+    container_name: social-media-backend
+    env_file:
+      - ../.env
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    networks:
+      - social-media-network
+
+networks:
+  social-media-network:
+    external: true

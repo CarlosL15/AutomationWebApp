@@ -1,0 +1,64 @@
+# Master orchestrator - runs all services together (optional)
+# You can also run each service separately from their own directories
+
+services:
+  db:
+    build:
+      context: ./DataBase
+      dockerfile: Docker/Dockerfile
+    container_name: social-media-db
+    env_file:
+      - ./.env
+    ports:
+      - "5431:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - social-media-network
+
+  backend:
+    build:
+      context: ./BackEnd
+      dockerfile: Docker/Dockerfile
+    container_name: social-media-backend
+    env_file:
+      - ./.env
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./BackEnd:/app
+    networks:
+      - social-media-network
+
+  frontend:
+    build:
+      context: ./FrontEnd/react-app
+      dockerfile: Docker/Dockerfile
+    container_name: social-media-frontend
+    depends_on:
+      - backend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./FrontEnd/react-app:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_BASE_URL=http://localhost:8000
+    networks:
+      - social-media-network
+
+volumes:
+  pgdata:
+
+networks:
+  social-media-network:
+    name: social-media-network
+    driver: bridge
