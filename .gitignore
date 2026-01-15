@@ -3,12 +3,4 @@
 __pycache__
 node_modules
 .vscode
-<<<<<<< HEAD
-<<<<<<< HEAD
 postgres.session.sql
-=======
-postgres.session.sql
->>>>>>> f3125b3 (changes)
-=======
-postgres.session.sql
->>>>>>> e5777a6ae18a78206ad33272e7a723dc7291fe03
